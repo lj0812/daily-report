@@ -5,15 +5,23 @@ program
   .command('add <paths...>')
   .description('添加目录为工作目录，允许获取该目录下git commit')
   .action((paths, cmd) => {
-    require('./libs/addDir')(paths, cmd)
+    require('./libs/add-path')(paths, cmd)
   })
 
 program
   .command('rm <paths...>')
   .description('删除相关目录，不再获取该目录下git commit')
   .action((paths, cmd) => {
-    require('./libs/rmDir')(paths, cmd)
+    require('./libs/rm-path')(paths, cmd)
   })
+
+program
+  .command('today', { isDefault: true })
+  .description('生成今天的日报')
+  .action(cmd => {
+    require('./libs/today-report')(cmd)
+  })
+
 
 program
   .version(version)
