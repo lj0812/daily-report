@@ -26,17 +26,22 @@ const getGitConfig = path => {
   return config
 }
 
-const getGitUserFromDir = path => {
+const getGitCommitMessages = path => {
   const gitConfig = getGitConfig(path)
   const { user: { name: author } } = gitConfig
 
-  const since = getZeroTimestamp()
+  const since = getZeroTimestamp() / 1000 >> 0
 
   const gitLogCommand = generateGitLogCommand(since, author)
   const stdout = execSync(gitLogCommand, { cwd: path }).toString()
-  console.log(stdout)
+
+  const commitMessages = stdout
+    .split('\n')
+    .filter(str => !str.startsWith('Merge branch'))
+
+  return commitMessages
 }
 
 module.exports = {
-  getGitUserFromDir
+  getGitCommitMessages
 }
