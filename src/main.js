@@ -17,9 +17,16 @@ program
 
 program
   .command('today', { isDefault: true })
-  .description('生成今天的日报')
+  .description('生成日报')
   .action(cmd => {
-    require('./libs/today-report')(cmd)
+    require('./libs/report')('day', cmd)
+  })
+
+program
+  .command('week')
+  .description('生成周报')
+  .action(cmd => {
+    require('./libs/report')('week', cmd)
   })
 
 

@@ -1,8 +1,13 @@
 const { execSync } = require('child_process')
-const { getZeroTimestamp } = require('../utils')
+const { getZeroTimestamp, getWeeklyZeroTimestamp } = require('../utils')
 
 const GIT_CONFIG_COMMAND = 'git config --list'
 const generateGitLogCommand = (since, author) => `git log --color --since=${since} --author=${author} --pretty=format:\'%s\'`
+
+const timeRangeMap = {
+  day: getZeroTimestamp() / 1000 >> 0,
+  week: getWeeklyZeroTimestamp() / 1000 >> 0
+}
 
 const getGitConfig = path => {
   const stdout = execSync(GIT_CONFIG_COMMAND, { cwd: path }).toString()
@@ -26,11 +31,12 @@ const getGitConfig = path => {
   return config
 }
 
-const getGitCommitMessages = path => {
+const getGitCommitMessages = (path, range = 'day') => {
+  console.log(range)
   const gitConfig = getGitConfig(path)
   const { user: { name: author } } = gitConfig
 
-  const since = getZeroTimestamp() / 1000 >> 0
+  const since = timeRangeMap[range]
 
   const gitLogCommand = generateGitLogCommand(since, author)
   const stdout = execSync(gitLogCommand, { cwd: path }).toString()
