@@ -1,4 +1,4 @@
-const { getGitPaths } = require('./config')
+const { getGitPaths } = require('./options')
 const { getGitCommitMessages } = require('./git')
 
 module.exports = function generateReport (range, cmd) {
