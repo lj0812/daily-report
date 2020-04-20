@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
 const { saveOptions } = require('./options')
+const { aesEncrypt } = require('./crypto')
 
 const EMAIL_REG = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
@@ -26,7 +27,7 @@ module.exports = function (cmd) {
       emailPasswordPrompt
     ])
     .then(answers => {
-      console.log(answers)
+      answers = { ...answers, emailPassword: aesEncrypt(answers.emailPassword) }
       saveOptions(answers)
     })
 }
