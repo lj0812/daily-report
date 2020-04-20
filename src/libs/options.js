@@ -52,20 +52,25 @@ const getGitPaths = () => {
     loadOptions().gitPaths ||
     []
 }
-exports.getGitPaths = getGitPaths
 
 // 向.dprc中添加git目录
-exports.addGitPath = (paths = []) => {
+const addGitPath = (paths = []) => {
   const cachedGitPath = getGitPaths()
   const gitPaths = [ ...new Set([...cachedGitPath, ...paths]) ]
   saveOptions({ gitPaths })
 }
 
 // 从.dprc中删除git目录
-exports.rmGitPath = paths => {
+const rmGitPath = paths => {
   const cachedGitPath = getGitPaths()
   const gitPaths = cachedGitPath.filter(path => !paths.includes(path))
 
   saveOptions({ gitPaths })
 }
 
+module.exports = {
+  saveOptions,
+  getGitPaths,
+  addGitPath,
+  rmGitPath
+}
