@@ -53,6 +53,12 @@ const getGitPaths = () => {
     []
 }
 
+const getEmailConfig = () => {
+  return (cachedOptions && cachedOptions.email) ||
+    loadOptions().email ||
+    {}
+}
+
 // 向.dprc中添加git目录
 const addGitPath = (paths = []) => {
   const cachedGitPath = getGitPaths()
@@ -72,5 +78,6 @@ module.exports = {
   saveOptions,
   getGitPaths,
   addGitPath,
-  rmGitPath
+  rmGitPath,
+  getEmailConfig
 }
