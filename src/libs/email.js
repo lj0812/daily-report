@@ -7,6 +7,11 @@ const email = Object.entries(cryptedEmail).reduce((acc, [key, value]) => {
   return Object.assign(acc, { [key]: aesDecrypt(value) })
 }, {})
 
+function parseEmailAddress (address) {
+  const reg = /(?<=@)([0-9a-zA-Z]+)(?=\.)/
+  const matched = reg.exec(address)
+}
+
 function getTransportConfig () {
 
 }
