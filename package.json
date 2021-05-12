@@ -18,7 +18,7 @@
     "inquirer": "^7.1.0",
     "lodash.clonedeep": "^4.5.0",
     "node-emoji": "^1.10.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "strip-ansi": "^6.0.0"
   }
 }
